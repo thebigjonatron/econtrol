@@ -3,7 +3,7 @@ realtime_cpu_temperature = 0x68
 realtime_cpu_fanspeed = 0x68
 realtime_cpu_rpm = 0xCD
 
-[[threashold_cpu_temperature_range]]
+[threashold_cpu_temperature_range]
 address_1 = 0x6A
 address_2 = 0x6B
 address_3 = 0x6C
@@ -16,7 +16,7 @@ realtime_gpu_temperature = 0x68
 realtime_gpu_fanspeed = 0x68
 realtime_gpu_rpm = 0xCB
 
-[[threashold_temperature_range]]
+[threashold_gpu_temperature_range]
 address_1 = 0x81
 address_2 = 0x82
 address_3 = 0x83
