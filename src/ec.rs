@@ -1,6 +1,7 @@
 use std::fs;
 
 const EC_FILE: &str = "/dev/ec";
+const CFG_FILE: &str = "./config.toml";
 
 pub struct EmbeddedController {
     contents: Vec<u8>
