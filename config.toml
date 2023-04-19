@@ -1,9 +1,9 @@
 [cpu]
 realtime_cpu_temperature = 0x68
-realtime_cpu_fanspeed = 0x68
+realtime_cpu_fanspeed = 0x71
 realtime_cpu_rpm = 0xCD
 
-[[threashold_cpu_temperature_range]]
+[threashold_cpu_temperature_range]
 address_1 = 0x6A
 address_2 = 0x6B
 address_3 = 0x6C
@@ -11,12 +11,20 @@ address_4 = 0x6D
 address_5 = 0x6E
 address_6 = 0x6F
 
+[cpu_fanspeed_range]
+address_1 = 0x72
+address_2 = 0x73
+address_3 = 0x74
+address_4 = 0x75
+address_5 = 0x76
+address_6 = 0x77
+
 [gpu]
-realtime_gpu_temperature = 0x68
-realtime_gpu_fanspeed = 0x68
+realtime_gpu_temperature = 0x80
+realtime_gpu_fanspeed = 0x89
 realtime_gpu_rpm = 0xCB
 
-[[threashold_temperature_range]]
+[threashold_gpu_temperature_range]
 address_1 = 0x81
 address_2 = 0x82
 address_3 = 0x83
@@ -24,22 +32,30 @@ address_4 = 0x84
 address_5 = 0x85
 address_6 = 0x86
 
+[gpu_fanspeed_range]
+address_1 = 0x8A
+address_2 = 0x8B
+address_3 = 0x8C
+address_4 = 0x8D
+address_5 = 0x8E
+address_6 = 0x8F
+
 [coolerboost]
 address=0x98
-hex_jump=80
+hex_jump=0x80
 
 [battery_charging_threshold]
 address = 0xEF
-hex_jump = 14 #battery_saver = BC; balanced = D0; mobility = 128;
+hex_jump = 0x14 #battery_saver = BC; balanced = D0; mobility = 128;
 
 [fan_preset]
 address = 0xF4
-hex_jump=  40 #Advanced or auto
+hex_jump=  0x40 #Advanced or auto
 
 [fan_mode]
 address = 0xF2
-hex_jump = 1 # Low, medium, high
+hex_jump = 0x1 # Low, medium, high
 
 [switch_fn_windows]
 address = 0xBF
-hex_jump = 10 #10 yes; 0 no
+hex_jump = 0x10 #10 yes; 0 no

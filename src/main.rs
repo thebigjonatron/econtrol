@@ -1,8 +1,9 @@
 mod ec;
+mod config_value;
 
 fn main() {
-    let mut ec = ec::EmbeddedController::new();
-    ec.dump();
+    let ec = ec::EmbeddedController::new();
+    ec.print();
 }
 
 
