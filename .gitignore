@@ -1,0 +1,7 @@
+/target/
+.idea
+econtrol.iml
+*.iml
+Cargo.lock
+**/*.rs.bk
+
