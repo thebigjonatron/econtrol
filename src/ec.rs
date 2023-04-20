@@ -72,33 +72,10 @@ impl EmbeddedController {
     }
 
 
-    //POC RE_WRITE
     fn check_index (&self, position: u8) -> &str{
-        let mut a = self.config.cpu().addresses();
-        let mut b = self.config.battery_charging_threshold().addresses();
-        let mut c = self.config.gpu().addresses();
-        let mut d = self.config.battery_charging_threshold().addresses();
-        let mut e = self.config.coolerboost().addresses();
-        let mut f = self.config.threashold_cpu_temperature_range().addresses();
-        let mut g = self.config.threashold_gpu_temperature_range().addresses();
-        let mut h = self.config.fan_mode().addresses();
-        let mut i = self.config.fan_preset().addresses();
-        let mut j = self.config.gpu_fanspeed_range().addresses();
-        let mut k = self.config.cpu_fanspeed_range().addresses();
-        a.extend(&b);
-        a.extend(&c);
-        a.extend(&d);
-        a.extend(&e);
-        a.extend(&f);
-        a.extend(&g);
-        a.extend(&h);
-        a.extend(&i);
-        a.extend(&j);
-        a.extend(&k);
-
-        for element in &a {
+        let addresses = self.config.addresses();
+        for element in &addresses {
             if element == &position {
-
                 return "\x1B[31m";
             }
         }
