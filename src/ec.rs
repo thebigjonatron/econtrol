@@ -33,20 +33,42 @@ impl EmbeddedController {
         for col in 0..16 {
             print!("{:02X} ", col);
         }
+        print!("   ");
+        for col in 0..16 {
+            print!("{:02}  ", col);
+        }
         println!();
         for row in 0..16 {
             print!("{}{:04X}: ", "\x1B[37m", row * 16);
             for col in 0..16 {
                 let index = row * 16 + col;
                 if index < self.contents.len() {
-                    print!("{}{:02X} ", EmbeddedController::check_index(self, index as u8) ,self.contents[index]);
+                    print!("{}{:02X} ", self.check_index(index as u8), self.contents[index]);
                 }
                 else {
                     print!("    ");
                 }
             }
+            print!("  ");
+            for col in 0..16 {
+                let index = row * 16 + col;
+                if index < self.contents.len() {
+                    print!("{}{:3} ", self.check_index(index as u8),self.contents[index]);
+                }
+                else {
+                    print!("   ");
+                }
+            }
             println!();
         }
+    }
+
+    pub fn print_key_values(&self){
+        print!("\n");
+        print!("CPU temp : {} \n", self.contents[self.config.cpu().realtime_cpu_temperature() as usize]);
+        print!("CPU fan speed : {} \n", self.contents[self.config.cpu().realtime_cpu_fanspeed() as usize]);
+        print!("GPU temp : {} \n", self.contents[self.config.gpu().realtime_gpu_temperature() as usize]);
+        print!("GPU fan speed : {} \n", self.contents[self.config.gpu().realtime_gpu_fanspeed() as usize]);
     }
 
 
@@ -58,7 +80,7 @@ impl EmbeddedController {
         let mut d = self.config.battery_charging_threshold().addresses();
         let mut e = self.config.coolerboost().addresses();
         let mut f = self.config.threashold_cpu_temperature_range().addresses();
-        let mut g =self.config.threashold_gpu_temperature_range().addresses();
+        let mut g = self.config.threashold_gpu_temperature_range().addresses();
         let mut h = self.config.fan_mode().addresses();
         let mut i = self.config.fan_preset().addresses();
         let mut j = self.config.gpu_fanspeed_range().addresses();
@@ -76,6 +98,7 @@ impl EmbeddedController {
 
         for element in &a {
             if element == &position {
+
                 return "\x1B[31m";
             }
         }
@@ -83,10 +106,8 @@ impl EmbeddedController {
     }
 
     //Dumps content of ec
-    pub fn dump(&self){
-        for byte in &self.contents{
-            print!("{:02x} \n", byte)
-        }
+    pub fn dump(&self, index: usize){
+        print!("{:02X}", self.contents[index])
     }
 
 
