@@ -46,6 +46,20 @@ impl Config {
     pub fn gpu_fanspeed_range(&self) -> &GpuFanSpeedRange {
         &self.gpu_fanspeed_range
     }
+    pub fn addresses(&self) -> Vec<u8> {
+        let mut addresses = Vec::new();
+        addresses.extend(&(self.cpu.addresses()));
+        addresses.extend(&(self.gpu.addresses()));
+        addresses.extend(&(self.battery_charging_threshold.addresses()));
+        addresses.extend(&(self.coolerboost.addresses()));
+        addresses.extend(&(self.threashold_cpu_temperature_range.addresses()));
+        addresses.extend(&(self.threashold_gpu_temperature_range.addresses()));
+        addresses.extend(&(self.fan_mode.addresses()));
+        addresses.extend(&(self.fan_preset.addresses()));
+        addresses.extend(&(self.gpu_fanspeed_range.addresses()));
+        addresses.extend(&(self.cpu_fanspeed_range.addresses()));
+        return addresses;
+    }
 }
 
 #[derive(Deserialize)]
