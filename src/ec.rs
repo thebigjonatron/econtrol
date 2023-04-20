@@ -1,6 +1,6 @@
 use std::fs::{File, OpenOptions};
 use std::fs;
-use std::io::{Error, Result, Seek, SeekFrom, Read};
+use std::io::{Error, Result, Seek, SeekFrom, Read, Write};
 use serde::Deserialize;
 use log::{info,trace};
 
@@ -36,18 +36,16 @@ impl EmbeddedController {
     }
 
     /*
-    Writes a single byte to the given position.
+    Writes a byte to the given position.
      */
-    pub fn single_write(&self, byte: u8, position: u8){
-        match Self::open() {
-            Ok(mut file) => {
-                file.seek(SeekFrom::Start(10)).unwrap();
-            },
-            Err(error) => {
-                panic!("Can't open /dev/ec, {}", error)
-            }
-
-        }
+    pub fn write(&self, byte: u8, position: u8){
+        let mut file = OpenOptions::new()
+            .write(true)
+            .read(false)
+            .create(false)
+            .open(EC_FILE).unwrap();
+        file.seek(SeekFrom::Start(position as u64)).unwrap();
+        file.write_all(&[byte]).unwrap();
     }
 
     // Prints content of ec
@@ -127,14 +125,6 @@ impl EmbeddedController {
             }
         }
         return "\x1B[37m";
-    }
-
-    fn open()-> Result<File>{
-        let file = OpenOptions::new()
-            .write(true)
-            .create(false)
-            .open(CFG_FILE)?; //Should unwrap ?
-        Ok(file)
     }
 
 }
