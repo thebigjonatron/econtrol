@@ -33,16 +33,30 @@ impl EmbeddedController {
         for col in 0..16 {
             print!("{:02X} ", col);
         }
+        print!("   ");
+        for col in 0..16 {
+            print!("{:02}  ", col);
+        }
         println!();
         for row in 0..16 {
             print!("{}{:04X}: ", "\x1B[37m", row * 16);
             for col in 0..16 {
                 let index = row * 16 + col;
                 if index < self.contents.len() {
-                    print!("{}{:02X} ", self.check_index(index as u8) ,self.contents[index]);
+                    print!("{}{:02X} ", self.check_index(index as u8), self.contents[index]);
                 }
                 else {
                     print!("    ");
+                }
+            }
+            print!("  ");
+            for col in 0..16 {
+                let index = row * 16 + col;
+                if index < self.contents.len() {
+                    print!("{}{:3} ", self.check_index(index as u8),self.contents[index]);
+                }
+                else {
+                    print!("   ");
                 }
             }
             println!();
@@ -84,6 +98,7 @@ impl EmbeddedController {
 
         for element in &a {
             if element == &position {
+
                 return "\x1B[31m";
             }
         }
