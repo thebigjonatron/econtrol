@@ -3,9 +3,7 @@ mod config_value;
 
 fn main() {
     let ec = ec::EmbeddedController::new();
-    ec.print();
-    ec.print_key_values();
-
+    ec.single_write(1,1)
 }
 
 

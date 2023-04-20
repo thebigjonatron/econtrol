@@ -1,6 +1,6 @@
+use std::fs::{File, OpenOptions};
 use std::fs;
-use toml::Table;
-use toml::Value;
+use std::io::{Error, Result, Seek, SeekFrom, Read};
 use serde::Deserialize;
 use log::{info,trace};
 
@@ -23,6 +23,30 @@ impl EmbeddedController {
             config: toml::from_str::<Config>(
                 &(fs::read_to_string(CFG_FILE).expect("Can't read config file")))
                 .unwrap()
+        }
+    }
+
+    pub fn refresh_contents(&mut self){
+        self.contents = fs::read(EC_FILE).expect("Can't read /dev/ec");
+    }
+
+    //Dumps content of ec
+    pub fn dump(&self, index: usize){
+        print!("{:02X}", self.contents[index])
+    }
+
+    /*
+    Writes a single byte to the given position.
+     */
+    pub fn single_write(&self, byte: u8, position: u8){
+        match Self::open() {
+            Ok(mut file) => {
+                file.seek(SeekFrom::Start(10)).unwrap();
+            },
+            Err(error) => {
+                panic!("Can't open /dev/ec, {}", error)
+            }
+
         }
     }
 
@@ -105,11 +129,12 @@ impl EmbeddedController {
         return "\x1B[37m";
     }
 
-    //Dumps content of ec
-    pub fn dump(&self, index: usize){
-        print!("{:02X}", self.contents[index])
+    fn open()-> Result<File>{
+        let file = OpenOptions::new()
+            .write(true)
+            .create(false)
+            .open(CFG_FILE)?; //Should unwrap ?
+        Ok(file)
     }
-
-
 
 }
