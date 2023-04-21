@@ -8,11 +8,17 @@ use clap::Parser;
 /// econtrol is a utility tool to read and write to embedded controller for msi laptops.
 struct Arguments {
     #[clap(short, long)]
-    /// This is the package name
-    package_name: Option<String>,
-    #[clap(short, long)]
-    /// Enable or disable coolerbooster
+    /// Enable or disable cooler booster
     coolerbooster: bool,
+    #[clap(short, long)]
+    /// Print contents of embedded controller
+    print: bool,
+    #[clap(short, long)]
+    /// Switch fn and windows key
+    switchfn: bool,
+    #[clap(short, long)]
+    /// Write to embedded controller
+    write: bool,
 }
 
 fn main() {

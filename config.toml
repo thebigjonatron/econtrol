@@ -54,7 +54,7 @@ hex_jump=  0x40 #Advanced or auto
 
 [fan_mode]
 address = 0xF2
-hex_jump = 0x1 # Low, medium, high
+hex_jump = 0x1 # Low, medium, high, turbo
 
 [switch_fn_windows]
 address = 0xBF
