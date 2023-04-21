@@ -2,7 +2,6 @@ use std::fs::{File, OpenOptions};
 use std::fs;
 use std::io::{Error, Result, Seek, SeekFrom, Read, Write};
 use serde::Deserialize;
-use log::{info,trace};
 
 use crate::config_value::*;
 
