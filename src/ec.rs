@@ -37,6 +37,7 @@ impl EmbeddedController {
     /*
     Writes a byte to the given position.
      */
+    // Should be private
     pub fn write(&self, byte: u8, position: u8){
         let mut file = OpenOptions::new()
             .write(true)
@@ -45,6 +46,10 @@ impl EmbeddedController {
             .open(EC_FILE).unwrap();
         file.seek(SeekFrom::Start(position as u64)).unwrap();
         file.write_all(&[byte]).unwrap();
+    }
+
+    pub fn coolerbooster(&self){
+        print!("ellow");
     }
 
     // Prints content of ec

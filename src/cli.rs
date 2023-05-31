@@ -1,4 +1,5 @@
 use clap::Parser;
+use crate::ec::EmbeddedController;
 
 #[derive(Parser,Default,Debug)]
 #[clap(author="Author Name", version)]
@@ -22,11 +23,9 @@ pub fn parse_args(){
     let args = Arguments::parse();
     print!("{:?}", args);
     if args.coolerbooster {
-        enable_coolerbooster();
+        print!("he");
+        let controller = EmbeddedController::new();
+        controller.coolerbooster()
+
     }
 }
-
-fn enable_coolerbooster(){
-    println!("Hello World!")
-}
-
